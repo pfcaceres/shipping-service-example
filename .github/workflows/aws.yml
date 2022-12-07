@@ -16,6 +16,7 @@ env:
   ECS_CLUSTER: dev-cluster                                # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION: task-definition.json               # set this to the path to your Amazon ECS task definition file, e.g. .aws/task-definition.json
   CONTAINER_NAME: ms-shipping-service                 # set this to the name of the container in the containerDefinitions section of your task definition
+  ENV: dev
   
 permissions:
   contents: read
@@ -24,7 +25,7 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    environment: production
+    environment: env.ENV
 
     steps:    
     - name: Checkout
