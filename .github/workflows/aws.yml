@@ -76,7 +76,7 @@ jobs:
       with:
           repository: ${{ env.ECR_REPOSITORY }}
           tag: ${{ env.IMAGE_TAG }}
-          new-tags: ${{ env.IMAGE_TAG }}_${{ github.event.repository.updated_at}}
+          new-tags: ${{ env.IMAGE_TAG }}_echo ${{ github.event.repository.updated_at}} | sed 's/:/./g'
   
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
