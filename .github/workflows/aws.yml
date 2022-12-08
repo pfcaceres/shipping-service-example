@@ -70,7 +70,7 @@ jobs:
     
     - name: GetDate
       id: date
-      run: echo "date=$(date +'%Y%m%d%H%M%S')"
+      run: echo "date=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
         
     - name: Retag image
       id: retag-img 
