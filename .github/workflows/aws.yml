@@ -67,7 +67,11 @@ jobs:
         task-definition: task-definition.json
         container-name: ${{ env.CONTAINER_NAME }}
         image: ${{ steps.build-image.outputs.image }}
-
+    
+    - name: GetDate
+      id: date
+      run: echo "date=$(date +'%Y%m%d%H%M%S')"
+        
     - name: Retag image
       id: retag-img 
       uses: abronin/ecr-retag-action@v1
@@ -76,7 +80,7 @@ jobs:
       with:
           repository: ${{ env.ECR_REPOSITORY }}
           tag: ${{ env.IMAGE_TAG }}
-          new-tags: ${{ env.IMAGE_TAG }}_echo ${{ github.event.repository.updated_at}} | sed 's/:/./g'
+          new-tags: ${{ env.IMAGE_TAG }}-${{ env.date }}
   
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
