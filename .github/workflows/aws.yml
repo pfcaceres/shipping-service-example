@@ -16,7 +16,7 @@ env:
   ECS_CLUSTER: dev-cluster                                # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION: task-definition.json               # set this to the path to your Amazon ECS task definition file, e.g. .aws/task-definition.json
   CONTAINER_NAME: ms-shipping-service                 # set this to the name of the container in the containerDefinitions section of your task definition
-  ENV: dev
+  ENV: develop
   
 permissions:
   contents: read
@@ -25,7 +25,7 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    environment: env.ENV
+    environment: ${{ env.ENV }}
 
     steps:    
     - name: Checkout
@@ -68,6 +68,13 @@ jobs:
         container-name: ${{ env.CONTAINER_NAME }}
         image: ${{ steps.build-image.outputs.image }}
 
+    - name: Retag image
+      uses: abronin/ecr-retag-action@v1
+      with:
+          repository: ${{ env.ECR_REPOSITORY }}
+          tag: ${{ IMAGE_TAG }}
+          new-tags: ${{ IMAGE_TAG }}_$(date + '%Y-%m-%d-%H-%M-%S')
+  
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
