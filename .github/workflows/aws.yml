@@ -14,7 +14,6 @@ env:
   ECR_REPOSITORY: dev-repository                         # set this to your Amazon ECR repository name
   ECS_SERVICE: dev-shipping-service                       # set this to your Amazon ECS service name
   ECS_CLUSTER: dev-cluster                                # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: task-definition.json               # set this to the path to your Amazon ECS task definition file, e.g. .aws/task-definition.json
   CONTAINER_NAME: ms-shipping-service                 # set this to the name of the container in the containerDefinitions section of your task definition
   
   
@@ -30,6 +29,12 @@ jobs:
     steps:    
     - name: Checkout
       uses: actions/checkout@v3
+
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -73,7 +78,7 @@ jobs:
         
     - name: Get task definition
       run: |
-        aws ecs describe-task-definition --task-definition dev-ms-shipping-service-td --output json --query taskDefinition > task-definition.json
+        aws ecs describe-task-definition --task-definition dev-${{ env.CONTAINER_NAME}}-td --output json --query taskDefinition > task-definition.json
                 
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
