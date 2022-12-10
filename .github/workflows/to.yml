@@ -1,13 +1,13 @@
-name: dispatch receiver
 
-on: [repository_dispatch]
-
+name: example-client-payload-action
+on: repository_dispatch
 jobs:
-  build:
+  test:
+    name: Test
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: dispatch trigger
-      if: github.event.action == "YOUR_EVENT_TYPE"
-      run: |
-        echo "repository_dispatch triggered"
+      - uses: actions/checkout@v1
+      - run: 'echo "field: ${{ github.event.client_payload.foo }}"'
+      - run: 'echo "payload: ${{ toJson(github.event.client_payload) }}"'
+      - run: echo baz
+        if: github.event.action == 'baz'
