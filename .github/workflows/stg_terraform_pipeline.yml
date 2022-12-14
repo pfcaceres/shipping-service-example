@@ -2,8 +2,8 @@ name: Create terraform on Development Environmet
 
 on:
   push:
-    branch:
-      - develop
+    branches:
+      - main
 
   workflow_dispatch:
 
@@ -46,6 +46,6 @@ jobs:
       continue-on-error: true
      
     - name: Terraform Apply
-      run: terraform apply --var-file=dev.tfvars -auto-approve
+      run: terraform apply --var-file=stg.tfvars -auto-approve
 
  
