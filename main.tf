@@ -4,8 +4,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "example_bucket" {
-  bucket = "my-tf-test-bucket-miguel-19287319837892137"
-  acl    = "private"
+  bucket = "pablo123_buckets3"
 tags = {
     Name        = "My bucket"
     Environment = "Dev"
@@ -14,7 +13,7 @@ tags = {
 
 terraform {
   backend "s3" {
-    bucket = "my-tf-test-bucket-miguel-19287319837892137"
+    bucket = "dev-bucket-tfstate"
     key    = "default-infrastructure.tfstate"
     region = "us-east-1"
   }
