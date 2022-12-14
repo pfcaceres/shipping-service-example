@@ -37,20 +37,6 @@ jobs:
       id: init
       run: terraform init
       
-  #  - name: Create Profile
-  #    id: profile
-  #    run: | 
-  #        export AWS_SESSION_KEY = "${{ secrets.AWS_SESSION_TOKEN }}"
-  #        export AWS_SECRET_ACCESS_KEY = "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
-  #        export AWS_ACCESS_KEY_ID = "${{ secrets.AWS_ACCESS_KEY_ID }}"
-        
-     # run: touch credentials
-     #    | echo  ${{ secrets.AWS_SESSION_TOKEN }} > credentials
-     #    | echo  ${{ secrets.AWS_SECRET_ACCESS_KEY }} > credentials
-     #    | echo  ${{ secrets.AWS_ACCESS_KEY_ID }} > credentials
-     #    | echo '[default]'  > credentials
-     #    | cat credentials
-      
     - name: Terraform Validate
       id: validate
       run: terraform validate -no-color
@@ -60,3 +46,7 @@ jobs:
       run: terraform plan -no-color
       continue-on-error: true
    
+    - name: Terraform Apply
+      id: apply
+      run: terraform apply -auto-approve -no-color
+      continue-on-error: true
