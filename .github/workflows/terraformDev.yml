@@ -1,4 +1,4 @@
-name: Create terraform plan
+name: Create terraform on Dev Environmet
 
 on:
   push:
