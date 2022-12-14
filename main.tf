@@ -14,7 +14,7 @@ tags = {
 
 terraform {
   backend "s3" {
-    bucket = "my-tf-test-bucket-miguel-tfstate"
+    bucket = "my-tf-test-bucket-miguel-19287319837892137"
     key    = "default-infrastructure.tfstate"
     region = "us-east-1"
   }
