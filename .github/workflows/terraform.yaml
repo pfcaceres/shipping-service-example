@@ -37,6 +37,11 @@ jobs:
       id: init
       run: terraform init
       
+    - name: Create Profile
+      id: profile
+      run: touch ~/.aws/credentials |
+           echo '[default]'  > ~/.aws/credentials
+      
     - name: Terraform Validate
       id: validate
       run: terraform validate -no-color
