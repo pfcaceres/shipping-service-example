@@ -4,7 +4,7 @@ provider "aws" {
 
 resource "aws_vpc" "micro1_vpc" {
 
-  cidr_block = "54.0.0.0/16
+  cidr_block = "51.0.0.0/16
  
 }
 
