@@ -1,4 +1,4 @@
-name: Create terraform on Development Environmet
+name: Create terraform on Staging Environmet
 
 on:
   push:
