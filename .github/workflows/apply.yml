@@ -1,8 +1,6 @@
 name: Apply terraform plan
 on:
-  push:
-    branches:
-      - master
+
 jobs:
   apply:
     name: Apply terraform plan
