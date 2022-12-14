@@ -3,7 +3,7 @@ provider "aws" {
   region     = "us-east-1"
 }
 
-resource "aws_s3_bucket" "example_bucket" {
+resource "aws_s3_bucket" "pablo123_buckets3" {
   bucket = "pablo123_buckets3"
 tags = {
     Name        = "My bucket"
