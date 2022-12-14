@@ -1,14 +1,10 @@
 provider "aws" {
-  #profile    = "default"
   region     = "us-east-1"
 }
 
-resource "aws_s3_bucket" "pablo123_buckets3" {
-  bucket = "pablo123_buckets3"
-tags = {
-    Name        = "My bucket"
-    Environment = "Dev"
-  }
+resource "aws_vpc" "micro_vpc" {
+  cidr_block = "50.0.0.0/16"
+ 
 }
 
 terraform {
