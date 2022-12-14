@@ -1,7 +1,9 @@
-name: Create terraform on Develop Environmet
+name: Create terraform on Production Environmet
 
 on:
   push:
+    branches:
+      - main
 
   workflow_dispatch:
 
@@ -9,8 +11,8 @@ permissions:
   contents: read
   
 jobs:
-  TerraformDev:
-    name: Terraform Dev
+  TerraformProd:
+    name: Terraform Prod
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -44,6 +46,6 @@ jobs:
       continue-on-error: true
      
     - name: Terraform Apply
-      run: terraform apply --var-file=dev.tfvars -auto-approve
+      run: terraform apply --var-file=prd.tfvars -auto-approve
 
  
