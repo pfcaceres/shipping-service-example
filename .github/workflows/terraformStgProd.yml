@@ -1,4 +1,4 @@
-name: Create terraform on Staging y Production Environmet
+name: Create terraform on Develop Environmet
 
 on:
   push:
@@ -9,8 +9,8 @@ permissions:
   contents: read
   
 jobs:
-  TerraformStg:
-    name: Terraform Stg
+  TerraformDev:
+    name: Terraform Dev
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -44,43 +44,6 @@ jobs:
       continue-on-error: true
      
     - name: Terraform Apply
-      run: terraform apply --var-file=stg.tfvars -auto-approve
+      run: terraform apply --var-file=dev.tfvars -auto-approve
 
-  TerraformPrd:
-    name: Terraform Prd
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      TF_ACTION_WORKING_DIR: '.'
-      AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
-    defaults:
-      run:
-        working-directory: ${{ env.TF_ACTION_WORKING_DIR }}
-    steps:
-    - uses: actions/checkout@v2
-    - uses: hashicorp/setup-terraform@v1
-    
-    - name: Terraform fmt
-      id: fmt
-      run: terraform fmt
-      continue-on-error: true
-      
-    - name: Terraform Init
-      id: init
-      run: terraform init
-      
-    - name: Terraform Validate
-      id: validate
-      run: terraform validate -no-color
-      
-    - name: Terraform Plan
-      id: plan
-      run: terraform plan -no-color
-      continue-on-error: true
-     
-    - name: Terraform Apply
-      run: terraform apply --var-file=prd.tfvars -auto-approve
-
-   
+ 
