@@ -39,8 +39,10 @@ jobs:
       
     - name: Create Profile
       id: profile
-      run: touch ~/.aws/credentials |
-           echo '[default]'  > ~/.aws/credentials
+      run: mkdir .aws
+        | cd .aws
+        | touch credentials
+        | echo '[default]'  > ~/.aws/credentials
       
     - name: Terraform Validate
       id: validate
